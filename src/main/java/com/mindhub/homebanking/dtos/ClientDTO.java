@@ -13,7 +13,7 @@ public class ClientDTO{
     private String firstName;
     private String lastName;
     private String email;
-    Set<AccountDTO> accounts = new HashSet<>();
+    private Set<AccountDTO> accounts = new HashSet<>();
 
     public ClientDTO(){
     };
