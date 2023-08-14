@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "accounts")
 public class Account {
+    //Properties or attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -24,6 +25,7 @@ public class Account {
     @OneToMany(mappedBy="account", fetch=FetchType.EAGER)
     private Set<Transaction> transactions = new HashSet<>();
 
+    // Constructors
     public Account() {
     }
 
@@ -33,6 +35,7 @@ public class Account {
         this.balance = balance;
     }
 
+    // Getters & Setters
     public Long getId() {
         return id;
     }
@@ -60,7 +63,7 @@ public class Account {
     public void setBalance(double balance) {
         this.balance = balance;
     }
-    //@JsonIgnore //mala practica, luego se cambia
+    //@JsonIgnore
     public Client getClient() {
         return client;
     }

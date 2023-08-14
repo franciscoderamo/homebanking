@@ -10,15 +10,16 @@ import java.util.Set;
 import static java.util.stream.Collectors.toSet;
 
 public class AccountDTO {
+    //Properties or attributes
     private Long id;
     private String number;
     private LocalDate creationDate;
     private double balance;
     private Set<TransactionDTO> transactions = new HashSet<>();
 
+    // Constructors
     public AccountDTO() {
     }
-
     public AccountDTO(Account account) {
         this.id = account.getId();
         this.number = account.getNumber();
@@ -27,6 +28,7 @@ public class AccountDTO {
         this.transactions = account.getTransactions().stream().map(TransactionDTO::new).collect(toSet());
     }
 
+    // Getters
     public Long getId() {
         return id;
     }

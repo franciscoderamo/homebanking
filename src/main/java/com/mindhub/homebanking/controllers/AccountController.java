@@ -19,17 +19,10 @@ public class AccountController {
 
     @RequestMapping("/accounts")
     public List<AccountDTO> getAccounts(){
-        //findAll().stream().map(client -> new ClientDTO(client)).collect(toList());
-        return accountRepository.findAll()
-                .stream()
-                .map(AccountDTO::new)
-                .collect(toList());
+        return accountRepository.findAll().stream().map(AccountDTO::new).collect(toList());
     }
     @RequestMapping("/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id) {
-        return accountRepository.findById(id)
-                //.map(client -> new ClientDTO(client))
-                .map(AccountDTO::new)
-                .orElse(null);
+        return accountRepository.findById(id).map(AccountDTO::new).orElse(null);
     }
 }

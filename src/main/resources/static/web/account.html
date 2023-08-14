@@ -108,7 +108,7 @@
                                         v-bind:class="[ transaction.type == 'CREDIT' ? 'credit-transaction' : 'debit-transaction']">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ transaction.description }}</td>
-                                        <td>{{ formatDate(transaction.creationDate) }}</td>
+                                        <td>{{ formatDate(transaction.date) }}</td>
                                         <td>${{ transaction.amount }}</td>
                                     </tr>
                                     </tbody>
@@ -131,8 +131,8 @@
 <footer class="mt-5">
     <div>
         <div>
-            <p>© 2023. Hecho con <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.28 9.39" style="width: 10px;"><defs><style>.cls-1{fill:#cb0000}</style></defs><title>Asset 6</title><g id="Layer_2" data-name="Layer 2"><path class="cls-1" d="M5.14 9.39c3.48-2.22 5.14-4.25 5.14-6.14S9.21 0 7.71 0a3.47 3.47 0 0 0-2.57 1.09A3.47 3.47 0 0 0 2.57 0C1.08 0 0 1.35 0 3.25s1.66 3.92 5.14 6.14z" id="Layer_1-2" data-name="Layer 1"></path></g></svg>
-                por <a href="https://portfolio-francisco-deramo.web.app"><b>Francisco D'Eramo</b></a>. Todos los derechos reservados.</p>
+            <p>© 2023. Made with <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.28 9.39" style="width: 10px;"><defs><style>.cls-1{fill:#cb0000}</style></defs><title>Asset 6</title><g id="Layer_2" data-name="Layer 2"><path class="cls-1" d="M5.14 9.39c3.48-2.22 5.14-4.25 5.14-6.14S9.21 0 7.71 0a3.47 3.47 0 0 0-2.57 1.09A3.47 3.47 0 0 0 2.57 0C1.08 0 0 1.35 0 3.25s1.66 3.92 5.14 6.14z" id="Layer_1-2" data-name="Layer 1"></path></g></svg>
+                by <a href="https://portfolio-francisco-deramo.web.app"><b>Francisco D'Eramo</b></a>. All rights reserved..</p>
         </div>
     </div>
 
