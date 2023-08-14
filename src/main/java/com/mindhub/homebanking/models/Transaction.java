@@ -8,28 +8,31 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "transactions")
 public class Transaction {
+    //Properties or attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Long id;
     private TransactionType type;
     private double amount;
-    private LocalDateTime creationDate;
+    private LocalDateTime date;
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="account_id")
     private Account account;
 
+    // Constructors
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, double amount, LocalDateTime creationDate, String description) {
+    public Transaction(TransactionType type, double amount, LocalDateTime date, String description) {
         this.type = type;
         this.amount = amount;
-        this.creationDate = creationDate;
+        this.date = date;
         this.description = description;
     }
 
+    // Getters & Setters
     public Long getId() {
         return id;
     }
@@ -50,12 +53,12 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public String getDescription() {

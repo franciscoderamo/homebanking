@@ -11,7 +11,7 @@
     box-shadow: 1px 1px 5px black;
 }
 
-.account:hover {
+.account:hover, .loan:hover {
     box-shadow: 2px 2px 10px black;
 }
 
@@ -47,8 +47,9 @@
 }
 
 .loan {
-    background: linear-gradient(45deg, #ee09cf, #0026ff);
+    background: linear-gradient(-45deg, #9109ee, #0d6efd);
     color: white;
+    box-shadow: 1px 1px 5px black;
 }
 
 .menu-logo {
