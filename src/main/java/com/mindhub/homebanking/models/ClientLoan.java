@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "clientloans")
 public class ClientLoan {
     //Properties or attributes
     @Id
