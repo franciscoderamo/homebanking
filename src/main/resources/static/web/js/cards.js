@@ -10,7 +10,7 @@ Vue.createApp({
     },
     methods: {
         getData: function () {
-            axios.get("/api/clients/1")
+            axios.get("/api/clients/current")
                 .then((response) => {
                     //get client ifo
                     this.clientInfo = response.data;
@@ -23,8 +23,21 @@ Vue.createApp({
                 })
         },
         formatDate: function (date) {
-            return new Date(date).toLocaleDateString('en-gb');
+            // This will set the function to format the date in the "MM/YY" format
+            const formattedDate = new Date(date);
+            const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+            const year = formattedDate.getFullYear().toString().slice(-2);
+            return `${month}/${year}`;
+            //return new Date(date).toLocaleDateString('en-gb');
         }
+        signOut: function () {
+            axios.post('/api/logout')
+                .then(response => window.location.href = "/web/index.html")
+                .catch(() => {
+                    this.errorMsg = "Sign out failed"
+                    this.errorToats.show();
+                })
+        },
     },
     mounted: function () {
         this.errorToats = new bootstrap.Toast(document.getElementById('danger-toast'));

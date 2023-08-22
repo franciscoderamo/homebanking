@@ -32,13 +32,6 @@ public class ClientLoan {
         this.payments = payments;
     }
 
-    public ClientLoan(Client client, Loan loan, int payments, long amount) {
-        this.client = client;
-        this.loan = loan;
-        this.payments = payments;
-        this.amount = amount;
-    }
-
     // Getters & Setters
     public Long getId() {
         return id;

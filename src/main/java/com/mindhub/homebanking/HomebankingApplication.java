@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,18 +16,20 @@ import java.util.List;
 
 @SpringBootApplication
 public class HomebankingApplication {
-
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
-
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return (args -> {
-			// 1° Creating clients
-			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com");
-			Client client2 = new Client("Francisco", "DEramo", "franciscoderamo@gmail.com");
 
+			// 1° Creating clients
+
+			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("1234567"));
+			Client client2 = new Client("Francisco", "DEramo", "franciscoderamo@gmail.com", passwordEncoder.encode("1234567"));
+			Client admin = new Client("admin", "admin", "admin@correo.com", passwordEncoder.encode("admin"));
 			// 1° Creating accounts
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000.0);
 			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500.0);
@@ -62,8 +66,10 @@ public class HomebankingApplication {
 
 			// First we save the clients in the DB so that they have an ID assigned and only there we can add the accounts
 			// 2° Saving clients
+
 			clientRepository.save(client1);
 			clientRepository.save(client2);
+			clientRepository.save(admin);
 
 			// 2° Saving accounts
 			accountRepository.save(account1);
