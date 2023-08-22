@@ -3,13 +3,8 @@ package com.mindhub.homebanking.dtos;
 import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
-import com.mindhub.homebanking.models.Client;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
-import static java.util.stream.Collectors.toSet;
 
 public class CardDTO {
     //Properties or attributes
@@ -70,4 +65,5 @@ public class CardDTO {
     public LocalDate getThruDate() {
         return thruDate;
     }
+
 }
