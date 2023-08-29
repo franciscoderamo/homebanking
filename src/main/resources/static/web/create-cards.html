@@ -9,16 +9,11 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Account</title>
+    <title>Create cards</title>
 </head>
 
 <body>
-    <style>
-        [v-cloak] {
-            display: none;
-        }
-    </style>
-    <div id="app" v-cloak>
+    <div id="app">
         <div class="toast-container position-absolute p-3 top-0 end-0" id="toastPlacement">
             <div id="danger-toast" data-bs-delay="2000" class="toast align-items-center text-white bg-danger border-0"
                 role="alert" aria-live="assertive" aria-atomic="true">
@@ -42,14 +37,14 @@
                         </a>
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
-                            <li class="nav-item">
-                                <a href="/web/accounts.html" class="nav-link active">
+                            <li>
+                                <a href="/web/accounts.html" class="nav-link link-dark">
                                     <i class="bi bi-inboxes"></i>
                                     Accounts
                                 </a>
                             </li>
-                            <li>
-                                <a href="/web/cards.html" class="nav-link link-dark">
+                            <li class="nav-item">
+                                <a href="/web/cards.html" class="nav-link active">
                                     <i class="bi bi-credit-card"></i>
                                     Cards
                                 </a>
@@ -74,65 +69,42 @@
                     </div>
                 </div>
                 <div class="col mx-5">
-                    <div class="row">
-                        <div class="col">
-                            <h1 class="display-6">Account details</h1>
-                        </div>
-                    </div>
                     <div class="row mt-3">
-                        <div class="col-4 mt-3 account p-3">
-                            <h5 class="card-text">Account Number:
-                                <b>{{ accountInfo.number }}</b>
-                            </h5>
-                            <h5 class="card-text">Balance:
-                                <b>${{ accountInfo.balance }}</b>
-                            </h5>
-                        </div>
-
-                    </div>
-                    <div class="row mt-3 m-1 list-group">
-                        <div class="col-6 mt-3 border p-3">
-                            <div class="col">
-                                <h2>Transactions</h2>
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>Nº</th>
-                                        <th>Description</th>
-                                        <th>Date</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr v-for="(transaction, index) in accountInfo.transactions"
-                                        v-bind:class="[ transaction.type == 'CREDIT' ? 'credit-transaction' : 'debit-transaction']">
-                                        <td>{{ index+1 }}</td>
-                                        <td>{{ transaction.description }}</td>
-                                        <td>{{ formatDate(transaction.date) }}</td>
-                                        <td>${{ transaction.amount }}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="col-6">
+                            <h2 class="display-6 subtitle">Create cards</h2>
+                            <form class="mt-4" v-on:submit="create($event)">
+                                <div class="row mb-3">
+                                    <label for="card-type" class="col-sm-4 col-form-label ">Card type:</label>
+                                    <div class="col-sm-7">
+                                        <select id="card-type" v-model="cardType" class="form-select"
+                                            aria-label="Default select example" required>
+                                            <option value="none">Open this select menu</option>
+                                            <option value="CREDIT">Credit</option>
+                                            <option value="DEBIT">Debit</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="card-color" class="col-sm-4 col-form-label">Card Color:</label>
+                                    <div class="col-sm-7">
+                                        <select id="card-color" v-model="cardColor" class="form-select"
+                                            aria-label="Default select example" required>
+                                            <option value="none">Open this select menu</option>
+                                            <option value="SILVER">Silver</option>
+                                            <option value="GOLD">Gold</option>
+                                            <option value="TITANIUM">Titanium</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" id="createCard" class="glow-on-hover tooltip-test" title="Create new card">Create</button>
+                            </form>
                         </div>
                     </div>
+                    <div class="row">
 
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row mt-5">
-            <img src="img/banner.jpg" alt="Banner">
-        </div>
-    </div>
-
-</body>
-<footer class="mt-5">
-    <div>
-        <div>
-            <p>© 2023. Made with <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.28 9.39" style="width: 10px;"><defs><style>.cls-1{fill:#cb0000}</style></defs><title>Asset 6</title><g id="Layer_2" data-name="Layer 2"><path class="cls-1" d="M5.14 9.39c3.48-2.22 5.14-4.25 5.14-6.14S9.21 0 7.71 0a3.47 3.47 0 0 0-2.57 1.09A3.47 3.47 0 0 0 2.57 0C1.08 0 0 1.35 0 3.25s1.66 3.92 5.14 6.14z" id="Layer_1-2" data-name="Layer 1"></path></g></svg>
-                by <a href="https://portfolio-francisco-deramo.web.app"><b>Francisco D'Eramo</b></a>. All rights reserved.</p>
         </div>
     </div>
 
@@ -141,7 +113,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
-    <script src="js/account.js"></script>
-</footer>
+    <script src="js/create-cards.js"></script>
+</body>
 
 </html>

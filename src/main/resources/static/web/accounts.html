@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Accounts</title>
 </head>
+
+<body>
 <style>
     [v-cloak] {
         display: none;
@@ -30,9 +32,9 @@
             </div>
         </div>
         <div class="container">
-            <div class="row mt-5">
-                <div class="col-12 col-md-2 mt-5">
-                    <div class="mt-5">
+            <div class="row pt-5">
+                <div class="menu col-12 col-md-2 pt-5">
+                    <div class="pt-5">
                         <a href="/web/accounts.html"
                             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                             <img class="menu-logo" src="img/Mindhub-logo.png">
@@ -71,27 +73,28 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col mx-5">
                     <div class="row">
                         <div class="col">
                             <h2 class="display-4">Welcome <b>{{ clientInfo.firstName }} {{ clientInfo.lastName }}</b>!</h2>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col mb-3">
-                            <h3 class="display-6 subtitle">Accounts:</h3>
+                        <div class="col mb-3 d-md-flex justify-content-between">
+                            <h3 class="display-6 subtitle pull-left">Accounts:</h3>
+                            <button v-if="clientInfo.accounts != null && clientInfo.accounts.length < 3"
+                                    v-on:click="create" id="createAccount" class="glow-on-hover pull-right display-6 tooltip-test" title="Create new account" type="button"><h3><b>+</b></h3></button>
                         </div>
                         <div class="row mx-2">
-                            <div v-for="{id, number, creationDate, balance} in clientInfo.accounts"
-                                class="col-12 col-md-4 mt-2 ">
-                                <a class="account-link" v-bind:href="'/web/account.html?id='+id">
+                            <div v-for="account in clientInfo.accounts" class="col-12 col-md-4 mt-2 ">
+                                <a class="account-link" v-bind:href="'/web/account.html?id='+account.id">
                                     <div class="card border-0 account">
                                         <div class="card-body">
-                                            <h5 class="card-title">Number account: <b>{{ number }}</b></h5>
+                                            <h5 class="card-title">Number account: <b>{{ account.number }}</b></h5>
                                             <p class="card-text">Balance:</p>
-                                            <h5 class="text-center lead account-balance"><b>${{ balance }}</b></h5>
+                                            <h5 class="text-center lead account-balance"><b>${{ account.balance }}</b></h5>
                                             <br>
-                                            <p class="card-text"> Date creation: {{ formatDate(creationDate) }}</p>
+                                            <p class="card-text"> Date creation: {{ formatDate(account.creationDate) }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -124,7 +127,6 @@
             <img src="img/banner.jpg" alt="Banner">
         </div>
     </div>
-
 </body>
 <footer class="mt-5">
     <div>
