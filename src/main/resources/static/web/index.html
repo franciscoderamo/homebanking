@@ -33,14 +33,13 @@
                         <div
                             class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last welcome shadow-sm rounded-5">
                             <div class="text w-100">
-                                <img class="welcome-logo" src="img/Mindhub-logo.png">
-                                <h2>Welcome to MindHub Bank</h2>
+                                <img class="welcome-logo" src="img/Mindhub-logo-white.png">
+                                <h2 class="text-white">Welcome to MindHub Bank</h2>
                                 <div v-if="showSignUp" class="form-group">
-                                    <a v-on:click="showSignUpToogle" href="#" class="btn btn-light my-2"><small>Sign
-                                            In</small></a>
+                                    <a v-on:click="showSignUpToogle" href="#" class="btn btn-light my-2"><small>Sign In</small></a>
                                 </div>
                                 <template v-if="!showSignUp">
-                                    <p>Don't have an account?</p>
+                                    <p class="text-white">Don't have an account?</p>
                                     <button v-on:click="showSignUpToogle" class="btn btn-light">Sign Up</button>
 
                                 </template>
@@ -65,7 +64,7 @@
                                             placeholder="Password" required autocomplete="off">
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary px-3">Sign In</button>
+                                        <button type="submit" class="form-control btn btn-primary px-3 welcome">Sign In</button>
                                     </div>
                                 </form>
                             </template>
@@ -97,7 +96,7 @@
                                             placeholder="Password" required autocomplete="off">
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary px-3">Sign Up</button>
+                                        <button type="submit" class="form-control btn btn-primary px-3 welcome">Sign Up</button>
                                     </div>
                                 </form>
                             </template>

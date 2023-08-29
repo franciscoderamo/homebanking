@@ -33,9 +33,9 @@
             </div>
         </div>
         <div class="container">
-            <div class="row mt-5">
-                <div class="col-12 col-md-2 mt-5">
-                    <div class="mt-5">
+            <div class="row pt-5">
+                <div class="menu col-12 col-md-2 pt-5">
+                    <div class="pt-5">
                         <a href="/web/accounts.html"
                             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                             <img class="menu-logo" src="img/Mindhub-logo.png">
@@ -74,29 +74,31 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col mx-5">
                     <div class="row">
                         <div class="col">
-                            <h1 class="display-4">{{ clientInfo.firstName }} {{ clientInfo.lastName }}</h1>
+                            <h1 class="display-4"><b>{{ clientInfo.firstName }} {{ clientInfo.lastName }}</b></h1>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col">
-                            <h2 class="display-6 subtitle">Debit Cards</h2>
-                            <div v-if="debitCards.length <= 0"><span class="small">No debit cards</span></div>
+                        <div class="col d-md-flex justify-content-between">
+                            <h2 class="display-6 subtitle pull-left">Debit Cards:</h2>
+                            <a v-if="clientInfo.cards != null && clientInfo.cards.length <= 6" href="create-cards.html"
+                                id="createDebitCard" class="glow-on-hover pull-right display-6 tooltip-test" title="Create new card">+</a>
                         </div>
+                        <div v-if="debitCards.length <= 0"><span class="small">No debit cards</span></div>
                     </div>
                     <div class="row">
                         <div v-for="card in debitCards" class="plastic-card col-12 col-md-3 mt-2">
                             <div
                                 v-bind:class="['plastic-card__front', 'plastic-card__part', card.color.toLowerCase() +'-plastic-card']">
                                 <div class="plastic-card__square">
-                                    <span class="plastic-card__label">{{ card.type}} {{ card.color }}</span>
+                                    <span class="plastic-card__label">{{ card.type }} {{ card.color }}</span>
                                 </div>
                                 <img class="plastic-card__front-logo plastic-card__logo" src="img/Mindhub-logo.png">
-                                <p class="plastic-card_numer">{{ card.number}}</p>
+                                <p class="plastic-card_numer">{{ card.number }}</p>
                                 <div class="plastic-card__space-60">
-                                    <span class="plastic-card__label">card holder</span>
+                                    <span class="plastic-card__label">Card holder</span>
                                     <p class="plastic-card__info">{{ card.cardHolder }}</p>
                                 </div>
                                 <div class="plastic-card__space-25">
@@ -110,10 +112,10 @@
                                 <div class="plastic-card__black-line"></div>
                                 <div class="plastic-card__back-content">
                                     <div class="plastic-card__secret">
-                                        <p class="plastic-card__secret--last">{{ card.cvv}}</p>
+                                        <p class="plastic-card__secret--last">{{ card.cvv }}</p>
                                     </div>
                                     <div class="plastic-card__back-square plastic-card__square">
-                                        <span class="plastic-card__label">{{ card.type}} {{ card.color }}</span>
+                                        <span class="plastic-card__label">{{ card.type }} {{ card.color }}</span>
                                     </div>
                                     <img class="plastic-card__back-logo plastic-card__logo" src="img/Mindhub-logo.png">
                                 </div>
@@ -121,10 +123,12 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col mt-5">
-                            <h2 class="display-6">Credit Cards</h2>
-                            <span class="small" v-if="creditCards.length <= 0">No credit cards</span>
+                        <div class="col mt-5 d-md-flex justify-content-between">
+                            <h2 class="display-6 pull-left">Credit Cards:</h2>
+                            <a v-if="clientInfo.cards != null && clientInfo.cards.length <= 6" href="create-cards.html"
+                               id="createCreditCard" class="glow-on-hover pull-right display-6 tooltip-test" title="Create new card">+</a>
                         </div>
+                        <div v-if="creditCards.length <= 0"><span class="small">No credit cards</span></div>
                     </div>
                     <div class="row">
                         <div v-for="card in creditCards" class="plastic-card col-12 col-md-3 mt-2">
@@ -150,10 +154,10 @@
                                 <div class="plastic-card__black-line"></div>
                                 <div class="plastic-card__back-content">
                                     <div class="plastic-card__secret">
-                                        <p class="plastic-card__secret--last">{{ card.cvv}}</p>
+                                        <p class="plastic-card__secret--last">{{ card.cvv }}</p>
                                     </div>
                                     <div class="plastic-card__back-square plastic-card__square">
-                                        <span class="plastic-card__label">{{ card.type}} {{ card.color }}</span>
+                                        <span class="plastic-card__label">{{ card.type }} {{ card.color }}</span>
                                     </div>
                                     <img class="plastic-card__back-logo plastic-card__logo" src="img/Mindhub-logo.png">
                                 </div>
@@ -179,4 +183,5 @@
         crossorigin="anonymous"></script>
     <script src="js/cards.js"></script>
 </footer>
+
 </html>
