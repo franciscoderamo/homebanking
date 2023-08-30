@@ -83,4 +83,11 @@ public class Account {
         transaction.setAccount(this);
         transactions.add(transaction);
     }
+    public void plusBalance(double amount){
+        balance += amount;
+    }
+
+    public void minusBalance(double amount){
+        balance -= amount;
+    }
 }
