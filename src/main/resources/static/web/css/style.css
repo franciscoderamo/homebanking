@@ -99,16 +99,26 @@ footer a, footer a:hover {
   text-decoration: none;
 }
 
-#createCreditCard, #createDebitCard, #createAccount{
-  font-size: 30px;
+#createCreditCard, #createDebitCard, #createAccount,#createCard, #transfer{
   color: white;
   font-weight: 500;
-  width: 40px;
 }
-#createCard {
-  color: white;
-  font-weight: 500;
+
+#createCreditCard, #createDebitCard, #createAccount{
+    font-size: 30px;
+    width: 40px;
+}
+
+#createCard, #transfer{
+  font-size: 16px;
+}
+
+#createCard{
   width: 70px;
+}
+
+#transfer {
+  width: 90px;
 }
 
 /* #### Bottom Hover Glow Effect ####
