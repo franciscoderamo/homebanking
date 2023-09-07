@@ -1,7 +1,7 @@
 package com.mindhub.homebanking.services;
 
-import org.springframework.http.ResponseEntity;
+import com.mindhub.homebanking.models.Transaction;
 
 public interface TransactionService {
-    public ResponseEntity<Object> register(String clientEmail, double amount, String fromAccountNumber, String toAccountNumber, String description);
+    void saveTransaction(Transaction transaction);
 }

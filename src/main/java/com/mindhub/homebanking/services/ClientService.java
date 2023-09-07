@@ -1,17 +1,18 @@
 package com.mindhub.homebanking.services;
 
 import com.mindhub.homebanking.dtos.ClientDTO;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import com.mindhub.homebanking.models.Client;
 import java.util.List;
 public interface ClientService {
+    List<ClientDTO> getClientsDTO();
+    void saveClient(Client client);
 
-    public List<ClientDTO> getClients();
+    Client findById(long id);
 
-    public ClientDTO getClient(Long id);
+    ClientDTO getClient (long id);
 
-    public ClientDTO getCurrentClient(Authentication authentication);
+    ClientDTO getCurrentClient(String email);
 
-    public ResponseEntity<Object> register(String firstName, String lastName, String email, String password);
-    public String createRandomNumberAccount(int min, int max);
+    Client findByEmail(String email);
+
 }

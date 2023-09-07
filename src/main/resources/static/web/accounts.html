@@ -92,7 +92,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">Number: <b>{{ account.number }}</b></h5>
                                             <p class="card-text">Balance:</p>
-                                            <h5 class="text-center lead account-balance"><b>${{ account.balance }}</b></h5>
+                                            <h5 class="text-center lead account-balance"><b>${{ formatAmount(account.balance) }}</b></h5>
                                             <br>
                                             <p class="card-text"> Date creation: {{ formatDate(account.creationDate) }}</p>
                                         </div>
