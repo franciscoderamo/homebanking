@@ -27,9 +27,11 @@ public class ClientLoan {
     public ClientLoan() {
     }
 
-    public ClientLoan(double amount, int payments) {
-        this.amount = amount;
+    public ClientLoan(Client client, Loan loan, int payments, double amount) {
+        this.client = client;
+        this.loan = loan;
         this.payments = payments;
+        this.amount = amount;
     }
 
     // Getters & Setters

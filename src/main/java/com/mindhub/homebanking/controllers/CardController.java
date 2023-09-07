@@ -44,4 +44,3 @@ public class CardController {
         return cardService.generateRandomCardNumber();
     }
 }
-
