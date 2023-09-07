@@ -33,7 +33,7 @@
         </div>
         <div class="container">
             <div class="row pt-5">
-                <div class="menu col-12 col-md-2 pt-5">
+                <div class="menu col-12 col-md-2 py-5">
                     <div class="pt-5">
                         <a href="/web/accounts.html"
                             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
@@ -92,7 +92,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">Number: <b>{{ account.number }}</b></h5>
                                             <p class="card-text">Balance:</p>
-                                            <h5 class="text-center lead account-balance"><b>${{ account.balance }}</b></h5>
+                                            <h5 class="text-center lead account-balance"><b>${{ formatAmount(account.balance) }}</b></h5>
                                             <br>
                                             <p class="card-text"> Date creation: {{ formatDate(account.creationDate) }}</p>
                                         </div>
@@ -113,7 +113,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Loan: <b>{{ loan.name }}</b></h5>
                                     <p class="card-text"> Payments: <b>{{ loan.payments}}</b></p>
-                                    <p class="text-center lead account-balance"> <b> ${{ loan.amount }}</b></p>
+                                    <p class="text-center lead account-balance"> <b> ${{ formatAmount(loan.amount) }}</b></p>
                                 </div>
                             </div>
                         </div>

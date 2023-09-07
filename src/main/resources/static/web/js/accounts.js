@@ -22,6 +22,13 @@ Vue.createApp({
         formatDate: function (date) {
             return new Date(date).toLocaleDateString('en-gb');
         },
+        formatAmount: function (amount) {
+          // Round the amount to two decimal places
+          const roundedAmount = Math.round(amount * 100) / 100;
+          const formattedAmount = roundedAmount.toFixed(2);
+
+          return formattedAmount;
+        },
         signOut: function () {
             axios.post('/api/logout')
                 .then(response => window.location.href = "/web/index.html")

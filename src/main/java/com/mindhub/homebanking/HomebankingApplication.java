@@ -54,15 +54,15 @@ public class HomebankingApplication {
 			Loan loan3 = new Loan("Automotive",300000,payments3);
 
 			// 1°  Creating ClientLoan
-			ClientLoan clientLoan1 = new ClientLoan(400000,60);
-			ClientLoan clientLoan2 = new ClientLoan(50000,12);
-			ClientLoan clientLoan3 = new ClientLoan(100000,24);
-			ClientLoan clientLoan4 = new ClientLoan(200000,36);
+			ClientLoan clientLoan1 = new ClientLoan(client1,loan1,60,400000);
+			ClientLoan clientLoan2 = new ClientLoan(client1,loan2,12,50000);
+			ClientLoan clientLoan3 = new ClientLoan(client2,loan1,24, 100000);
+			ClientLoan clientLoan4 = new ClientLoan(client2,loan3,36,200000);
 
 			// 1° Creating Card
-			Card card1 = new Card(client1.getLastName() + " " + client1.getFirstName(),CardType.DEBIT, CardColor.GOLD, "1256 2456 4584 9103", (short) 456, LocalDate.now(), LocalDate.now().plusYears(5));
-			Card card2 = new Card(client1.getLastName() + " " + client1.getFirstName(), CardType.CREDIT, CardColor.TITANIUM, "1289 7483 6594 9783", (short) 879, LocalDate.now(), LocalDate.now().plusYears(5));
-			Card card3 = new Card((client2.getLastName() + " " + client2.getFirstName()).substring(0, 14), CardType.CREDIT, CardColor.SILVER, "4584 9103 1256 2456", (short) 164, LocalDate.now(), LocalDate.now().plusYears(5));
+			Card card1 = new Card(client1.getLastName() + " " + client1.getFirstName(),CardType.DEBIT, CardColor.GOLD, "1256-2456-4584-9103", (short) 456, LocalDate.now(), LocalDate.now().plusYears(5));
+			Card card2 = new Card(client1.getLastName() + " " + client1.getFirstName(), CardType.CREDIT, CardColor.TITANIUM, "1289-7483-6594-9783", (short) 879, LocalDate.now(), LocalDate.now().plusYears(5));
+			Card card3 = new Card((client2.getLastName() + " " + client2.getFirstName()).substring(0, 14), CardType.CREDIT, CardColor.SILVER, "4584-9103-1256-2456", (short) 164, LocalDate.now(), LocalDate.now().plusYears(5));
 
 			// First we save the clients in the DB so that they have an ID assigned and only there we can add the accounts
 			// 2° Saving clients
