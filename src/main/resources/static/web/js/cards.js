@@ -29,7 +29,6 @@ Vue.createApp({
             const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
             const year = formattedDate.getFullYear().toString().slice(-2);
             return `${month}/${year}`;
-            // return new Date(date).toLocaleDateString('en-gb');
         },
         signOut: function () {
             axios.post('/api/logout')
