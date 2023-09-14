@@ -24,11 +24,11 @@ public class AccountController {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping("/accounts")
+    @GetMapping("/accounts")
     public List<AccountDTO> getAccountsDTO(){
         return accountService.getAccountsDTO();
     }
-    @RequestMapping("/accounts/{id}")
+    @GetMapping("/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id) {
         return accountService.getAccount(id);
     }
@@ -47,7 +47,7 @@ public class AccountController {
         }
     }
 
-    @RequestMapping("/clients/current/accounts")
+    @GetMapping("/clients/current/accounts")
     public List<AccountDTO> getClientAccount(Authentication authentication){
         //Verify that you meet all the conditions
         String clientEmail = authentication.getName(); //Get customer email

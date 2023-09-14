@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,9 +18,13 @@ public class CardServiceImplement implements CardService {
     private CardRepository cardRepository;
 
     @Override
-    @RequestMapping("/cards")
+    public List<Card> findAllCard() {
+        return cardRepository.findByIsActive(true);
+    }
+
+    @Override
     public List<CardDTO> getAllCardsDTO(){
-        return cardRepository.findAll().stream().map(CardDTO::new).collect(Collectors.toList());
+        return findAllCard().stream().map(CardDTO::new).collect(Collectors.toList());
     }
 
     @Override
@@ -32,6 +37,10 @@ public class CardServiceImplement implements CardService {
         return cardRepository.existsByNumber(number);
     }
 
+    @Override
+    public Card findCardByNumber(String number) {
+        return cardRepository.findByNumber(number).orElse(null);
+    }
     @Override
     public boolean cardExistsByCvv(short cvv) {
         return cardRepository.existsByCvv(cvv);
@@ -49,6 +58,13 @@ public class CardServiceImplement implements CardService {
     @Override
     public List<CardDTO> findByClientEmail (String email){
         return cardRepository.findByClientEmail(email).stream().map(CardDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteCard(String number) {
+        Card card = findCardByNumber(number);
+        card.setIsActivate();
+        this.saveCard(card);
     }
 
 }

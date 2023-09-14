@@ -99,21 +99,22 @@ footer a, footer a:hover {
   text-decoration: none;
 }
 
-#createCreditCard, #createDebitCard, #createAccount,#createCard, #transfer, #applyLoan{
+#createCreditCard, #createDebitCard, #createAccount,#createCard, #deleteCard, #transfer, #applyLoan, #deleteDebitCard, #deleteCreditCard{
   color: white;
   font-weight: 500;
 }
 
-#createCreditCard, #createDebitCard, #createAccount{
-    font-size: 30px;
-    width: 40px;
+#createCreditCard, #createDebitCard, #createAccount, #deleteDebitCard, #deleteCreditCard{
+  font-size: 20px;
+  width: 40px;
+  padding: 8px 10px;
 }
 
-#createCard, #transfer, #applyLoan{
+#createCard, #deleteCard, #transfer, #applyLoan{
   font-size: 16px;
 }
 
-#createCard, #applyLoan{
+#createCard, #deleteCard, #applyLoan{
     width: 70px;
 }
 

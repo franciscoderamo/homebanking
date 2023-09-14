@@ -17,6 +17,7 @@ public class Transaction {
     private double amount;
     private LocalDateTime date;
     private String description;
+    private boolean isActive;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="account_id")
     private Account account;
@@ -30,6 +31,7 @@ public class Transaction {
         this.amount = amount;
         this.date = date;
         this.description = description;
+        this.isActive = true; //By default, the transaction is considered active
     }
 
     // Getters & Setters
@@ -68,7 +70,12 @@ public class Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    public boolean getIsActive() {
+        return isActive;
+    }
+    public void setIsDisabled() {
+        this.isActive = false;
+    }
     public Account getAccount() {
         return account;
     }
