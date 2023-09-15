@@ -15,8 +15,8 @@ Vue.createApp({
                 .then((response) => {
                     //get client ifo
                     this.clientInfo = response.data;
-                    this.creditCards = this.clientInfo.cards.filter(card => card.type == "CREDIT");
-                    this.debitCards = this.clientInfo.cards.filter(card => card.type == "DEBIT");
+                    this.creditCards = this.clientInfo.cards.filter(card => card.type == "CREDIT" && card.isActive == true);
+                    this.debitCards = this.clientInfo.cards.filter(card => card.type == "DEBIT" && card.isActive == true);
                 })
                 .catch((error) => {
                     this.errorMsg = "Error getting data";
@@ -30,6 +30,11 @@ Vue.createApp({
             const year = formattedDate.getFullYear().toString().slice(-2);
             return `${month}/${year}`;
         },
+//        isDateExpired: function (date) {
+//            const currentDate = new Date();
+//            const cardThrudate = new Date(date);
+//            return cardThruDate ‹ currentDate;
+//        }
         signOut: function () {
             axios.post('/api/logout')
                 .then(response => window.location.href = "/web/index.html")

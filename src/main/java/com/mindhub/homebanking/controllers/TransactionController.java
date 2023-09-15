@@ -73,6 +73,7 @@ public class TransactionController {
         if(!emailClientSourceAccount.equals(authentication.getName())){
             return new ResponseEntity<>("Invalid source account. Verify that the source account is yours",HttpStatus.FORBIDDEN);
         }
+
         //Verify that the source account has the amount available.
         if(sourceAccount.getBalance() < amount){
             return new ResponseEntity<>("Insufficient funds",HttpStatus.FORBIDDEN);

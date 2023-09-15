@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.CardDTO;
+import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
@@ -17,6 +18,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -28,20 +30,28 @@ public class CardController {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping("/cards")
-    public List<CardDTO> getAllCardsDTO(){
+    @GetMapping("/cards")
+    public List<CardDTO> getAllCardsDTO(Authentication authentication){
         return cardService.getAllCardsDTO();
     }
 
-    @RequestMapping("/cards/{id}")
+    @GetMapping("/cards/{id}")
     public CardDTO getCard(@PathVariable Long id) {
         return cardService.getCard(id);
     }
 
-    @RequestMapping("/clients/current/cards")
-    public List<CardDTO> getCurrentClientCards(Authentication authentication){
-        String clientEmail = authentication.getName(); //Get customer email
-        return cardService.findByClientEmail(clientEmail);
+    @GetMapping("/clients/current/cards")
+    public ResponseEntity<Object> getCurrentClientCards(Authentication authentication) {
+        if(authentication == null) {
+            return new ResponseEntity<>("You need to login first", HttpStatus.FORBIDDEN);
+        }
+        ClientDTO currentClient= clientService.getCurrentClient(authentication.getName());
+        if(currentClient == null){
+            return new ResponseEntity<>("User not found",HttpStatus.FORBIDDEN);
+        }
+        //Get User Cards
+        //return new ResponseEntity<>(currentClient.getCards(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(currentClient.getCards().stream().filter(CardDTO::getIsActive), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/clients/current/cards")
@@ -63,14 +73,13 @@ public class CardController {
             // Limit the cardholder to 14 characters
             String cardHolder = (authenticatedClient.getLastName() + " " + authenticatedClient.getFirstName());
 
-            // Check cardType and cardColor limits
-            int cardsOfTypeAndColor = (int) clientCards.stream().filter(card -> card.getType() == cardType && card.getColor() == cardColor).count();
+            // Check cardType and cardColor limits that are active
+            int cardsOfTypeAndColor = (int) clientCards.stream().filter(card -> card.getType() == cardType && card.getColor() == cardColor && card.getIsActive()).count();
             if (cardsOfTypeAndColor == 0) {
                 do {
                     cvv = generateRandomCvv();
                     cardNumber = generateRandomCardNumber();
                     Card newCard = new Card(cardHolder, cardType, cardColor, cardNumber, cvv, LocalDate.now(), LocalDate.now().plusYears(5));
-                    //newCard.setClient(clientRepository.findByEmail(authentication.getName()));
                     cardService.saveCard(newCard);
                     //Associate client with card and save in ClientRepository
                     authenticatedClient.addCard(newCard);
@@ -85,6 +94,33 @@ public class CardController {
             return new ResponseEntity<>("Invalid authenticated client", HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @DeleteMapping("/clients/current/cards")
+    public ResponseEntity<Object> deleteCard(Authentication authentication, @RequestParam String number){
+
+        //Verify that the card exists
+        if(!cardService.cardExistsByNumber(number)){
+            return new ResponseEntity<>("Card not found", HttpStatus.FORBIDDEN);
+        }
+
+        Card cardClient = cardService.findCardByNumber(number);
+
+        // Verify that the card belongs to the authenticated customer
+        Client currentClient = clientService.findByEmail(authentication.getName());
+        if(currentClient == null){
+            return new ResponseEntity<>("User not found",HttpStatus.FORBIDDEN);
+        }
+
+        //Delete Logical Card
+        if(cardClient.getIsActive()) {
+            cardService.deleteCard(number);
+            return new ResponseEntity<>("Deleted card", HttpStatus.ACCEPTED);
+        }else{
+            return new ResponseEntity<>("Card already deleted", HttpStatus.FORBIDDEN);
+        }
+
+    }
+
     // Generate random CVV
     private short generateRandomCvv(){
         return (short) (Math.random() * 999);
@@ -101,4 +137,5 @@ public class CardController {
         }
         return number.toString();
     }
+
 }

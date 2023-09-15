@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mindhub.homebanking.models.Client.passwordValidator;
+
 @RestController
 @RequestMapping("/api")
 public class ClientController {
@@ -28,20 +30,20 @@ public class ClientController {
     private PasswordEncoder passwordEncoder;
 
 
-    @RequestMapping("/clients")
+    @GetMapping("/clients")
     public List<ClientDTO> getClientsDTO(){
         return clientService.getClientsDTO();
     }
-    @RequestMapping("/clients/{id}")
+    @GetMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id) {
         return clientService.getClient(id);
     }
 
-    @RequestMapping("/clients/current")
+    @GetMapping("/clients/current")
     public ClientDTO getCurrentClient(Authentication authentication){
         return clientService.getCurrentClient(authentication.getName());
     }
-    @RequestMapping(path = "/clients", method = RequestMethod.POST)
+    @PostMapping("/clients")
     public ResponseEntity<Object> register(
             @RequestParam String firstName, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password) {
@@ -71,13 +73,17 @@ public class ClientController {
         if (clientService.findByEmail(email) !=  null) {
             return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
-        Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        clientService.saveClient(client);
-
-        // Create the first customer account and associate it
-        Account account = new Account(createRandomNumberAccount(1, 99999999), LocalDate.now(),0.0);
-        account.setClient(client);
-        accountService.saveAccount(account);
+        try{
+            Client client = new Client(firstName, lastName, email, passwordValidator(password));
+            client.setPassword(passwordEncoder.encode(client.getPassword()));
+            clientService.saveClient(client);
+            // Create the first customer account and associate it
+            Account account = new Account(createRandomNumberAccount(1, 99999999), LocalDate.now(),0.0);
+            account.setClient(client);
+            accountService.saveAccount(account);
+        }catch (IllegalArgumentException exception){
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     public String createRandomNumberAccount(int min, int max) {

@@ -82,8 +82,8 @@
                     <div class="row mt-3">
                         <div class="col mb-3 d-md-flex justify-content-between">
                             <h3 class="display-6 subtitle pull-left">Accounts:</h3>
-                            <button v-if="clientInfo.accounts != null && clientInfo.accounts.length < 3"
-                                    v-on:click="create" id="createAccount" class="glow-on-hover pull-right display-6 tooltip-test" title="Create new account" type="button"><h3><b>+</b></h3></button>
+                            <a v-if="clientInfo.accounts != null && clientInfo.accounts.length < 3"
+                                    v-on:click="create" id="createAccount" class="glow-on-hover pull-right display-6 tooltip-test" title="Create new account" type="button"><i class="bi bi-plus"></i></a>
                         </div>
                         <div class="row">
                             <div v-for="account in clientInfo.accounts" class="col-12 col-md-4 mt-2 ">
