@@ -21,6 +21,7 @@ public class Card {
     private LocalDate fromDate;
     private LocalDate thruDate;
     private boolean isActive;
+    private boolean isExpired;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id")
     private Client client;
@@ -37,6 +38,7 @@ public class Card {
         this.fromDate = fromDate;
         this.thruDate = thruDate;
         this.isActive = true; //By default, the transaction is considered active
+        this.isExpired = false;
     }
 
     // Getters & Setters
@@ -105,6 +107,14 @@ public class Card {
     }
     public void setIsActivate() {
         this.isActive = false;
+    }
+    public boolean getIsExpired() {
+//        LocalDate currentDate = LocalDate.now();
+//        return thruDate.isBefore(currentDate);
+        return isExpired;
+    }
+    public void setIsExpired(boolean isExpired) {
+        this.isExpired = isExpired;
     }
 
     public Client getClient() {

@@ -102,7 +102,9 @@
                                 </div>
                                 <div class="plastic-card__space-25 ms-4">
                                     <span class="plastic-card__label">Expires</span>
-                                    <p class="plastic-card__info">{{ formatDate(card.thruDate) }}</p>
+                                    <p v-if="card.isExpired" class="plastic-card__info text-danger">
+                                        <i class="bi bi-shield-fill-exclamation"></i> {{ formatDate(card.thruDate) }}</p>
+                                    <p v-else class="plastic-card__info" > {{ formatDate(card.thruDate) }}</p>
                                 </div>
                             </div>
 
@@ -141,14 +143,16 @@
                                     <span class="plastic-card__label">{{ card.type}} {{ card.color }}</span>
                                 </div>
                                 <img class="plastic-card__front-logo plastic-card__logo" src="img/Mindhub-logo.png">
-                                <p class="plastic-card_numer">{{ card.number}}</p>
+                                <p class="plastic-card_number">{{ card.number}}</p>
                                 <div class="plastic-card__space-60">
                                     <span class="plastic-card__label">card holder</span>
                                     <p class="plastic-card__info">{{ card.cardHolder }}</p>
                                 </div>
-                                <div class="plastic-card__space-25">
+                                <div class="plastic-card__space-25 ms-4">
                                     <span class="plastic-card__label">Expires</span>
-                                    <p class="plastic-card__info">{{ formatDate(card.thruDate) }}</p>
+                                        <p v-if="card.isExpired" class="plastic-card__info text-danger">
+                                            <i class="bi bi-shield-fill-exclamation"></i> {{ formatDate(card.thruDate) }}</p>
+                                        <p v-else class="plastic-card__info" > {{ formatDate(card.thruDate) }}</p>
                                 </div>
                             </div>
 

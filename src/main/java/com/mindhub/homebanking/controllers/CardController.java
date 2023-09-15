@@ -50,7 +50,8 @@ public class CardController {
             return new ResponseEntity<>("User not found",HttpStatus.FORBIDDEN);
         }
         //Get User Cards
-        return new ResponseEntity<>(currentClient.getCards(), HttpStatus.ACCEPTED);
+        //return new ResponseEntity<>(currentClient.getCards(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(currentClient.getCards().stream().filter(CardDTO::getIsActive), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/clients/current/cards")

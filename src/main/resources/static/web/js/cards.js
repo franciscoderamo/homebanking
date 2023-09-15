@@ -30,6 +30,11 @@ Vue.createApp({
             const year = formattedDate.getFullYear().toString().slice(-2);
             return `${month}/${year}`;
         },
+//        isDateExpired: function (date) {
+//            const currentDate = new Date();
+//            const cardThrudate = new Date(date);
+//            return cardThruDate ‹ currentDate;
+//        }
         signOut: function () {
             axios.post('/api/logout')
                 .then(response => window.location.href = "/web/index.html")
